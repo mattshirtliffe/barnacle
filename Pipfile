@@ -1,0 +1,27 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+
+[packages]
+
+click = "==6.7"
+flask = "==0.12.2"
+flask-wtf = "==0.14.2"
+itsdangerous = "==0.24"
+"jinja2" = "==2.10"
+markupsafe = "==1.0"
+werkzeug = "==0.14.1"
+wtforms = "==2.1"
+flask-script = "*"
+flask-migrate = "*"
+pymysql = "*"
+flask-bcrypt = "*"
+marshmallow = "*"
+pyjwt = "*"
