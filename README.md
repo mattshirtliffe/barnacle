@@ -23,6 +23,10 @@ python manage.py db migrate
 python manage.py db upgrade
 
 
+# Run tests
+
+python manage.py test
+
 # Run mysql in docker container on host
 
 docker pull mysql
