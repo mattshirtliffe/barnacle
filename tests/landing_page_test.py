@@ -11,7 +11,7 @@ class LandingPageTestCase(unittest.TestCase):
         # initialize the test client
         self.client = self.app.test_client
 
-        self.user_data = {
+        self.lead_data = {
             'email': 'test@example.com',
             'first_name': 'first_name',
             'last_name': 'last_name',
@@ -34,18 +34,18 @@ class LandingPageTestCase(unittest.TestCase):
 
     def test_lead_form(self):
         res = self.client().post('/', data=dict(
-            first_name=self.user_data['first_name'],
-            last_name=self.user_data['last_name'],
-            email=self.user_data['email'],
-            phone=self.user_data['phone']
+            first_name=self.lead_data['first_name'],
+            last_name=self.lead_data['last_name'],
+            email=self.lead_data['email'],
+            phone=self.lead_data['phone']
         ))
         self.assertEqual(res.status_code, 302)
 
     def test_missing_field_lead_form(self):
         res = self.client().post('/', data=dict(
-            first_name=self.user_data['first_name'],
-            last_name=self.user_data['last_name'],
-            phone=self.user_data['phone']
+            first_name=self.lead_data['first_name'],
+            last_name=self.lead_data['last_name'],
+            phone=self.lead_data['phone']
         ),follow_redirects=True)
         self.assertEqual(res.status_code, 200)
         self.assertIn('This field is required.', res.data.decode())
