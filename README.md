@@ -41,6 +41,7 @@ docker pull mysql
 docker run -p 3306:3306 --name landing-page-mysql -e MYSQL_ROOT_PASSWORD=toor -d mysql:latest
 
 docker exec -it landing-page-mysql bash
+docker exec -it landing-page-mysql mysql -u root -p
 
 mysql -u root -p
 
@@ -80,3 +81,32 @@ docker exec -it landing-page-mysql bash
 mysql -u root -p
 
 create database landing_page;
+
+
+# legacy link
+docker build -f Dockerfile -t matthewshirtliffecouk/landing_page .
+docker run -p 3306:3306 --name landing-page-mysql -e MYSQL_ROOT_PASSWORD=toor -d mysql:latest
+docker run -d -p 5000:5000 --link landing-page-mysql:mysql --name landing-page  matthewshirtliffecouk/landing_page
+# network
+docker build -f Dockerfile -t matthewshirtliffecouk/landing_page .
+docker network create --driver bridge barnacle_network
+docker run -d --net=barnacle_network -p 3306:3306 --name landing-page-mysql -e MYSQL_ROOT_PASSWORD=toor mysql:latest
+docker run -d --net=barnacle_network -p 5000:5000 --name landing-page  matthewshirtliffecouk/landing_page
+
+
+# config example in instance
+```import os
+
+class Config:
+    DEBUG = False
+    CSRF_ENABLED = True
+    SECRET_KEY = os.getenv('SECRET')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+
+app_config = {
+    'development': DevelopmentConfig
+}
+```
