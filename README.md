@@ -28,8 +28,6 @@ python manage.py db upgrade
 docker exec -it landing-page python manage.py db upgrade
 
 
-
-
 # Run tests
 
 python manage.py test
@@ -53,8 +51,9 @@ docker exec -it landing-page-mysql bash
 
 
 # Create admin user
-python create_user.py
 
+python create_user.py
+docker exec -it landing-page python create_user.py
 
 # Get your leads
 
@@ -84,17 +83,26 @@ create database landing_page;
 
 
 # legacy link
+
 docker build -f Dockerfile -t matthewshirtliffecouk/landing_page .
+
 docker run -p 3306:3306 --name landing-page-mysql -e MYSQL_ROOT_PASSWORD=toor -d mysql:latest
+
 docker run -d -p 5000:5000 --link landing-page-mysql:mysql --name landing-page  matthewshirtliffecouk/landing_page
+
 # network
+
 docker build -f Dockerfile -t matthewshirtliffecouk/landing_page .
+
 docker network create --driver bridge barnacle_network
+
 docker run -d --net=barnacle_network -p 3306:3306 --name landing-page-mysql -e MYSQL_ROOT_PASSWORD=toor mysql:latest
+
 docker run -d --net=barnacle_network -p 5000:5000 --name landing-page  matthewshirtliffecouk/landing_page
 
 
 # config example in instance
+
 ```import os
 
 class Config:
