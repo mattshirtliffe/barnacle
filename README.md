@@ -1,4 +1,4 @@
-# Running
+# Running Development
 pipenv --python 3.6
 
 pipenv shell
@@ -6,13 +6,15 @@ pipenv shell
 pipenv install
 
 export FLASK_APP="run.py"
+flask run
 
-export SECRET="your choice"
 
-export APP_SETTINGS="development"
+# Running Production
 
-export DATABASE_URL="mysql+pymysql://root:toor@localhost/landing_page"
-
+export SECRET_KEY="your choice"
+export APP_SETTINGS="production"
+export DATABASE_URI="mysql+pymysql://root:toor@localhost/landing_page"
+gunicorn -w 4 -b 0.0.0.0:5000 run:app
 
 # Database and Migrations
 

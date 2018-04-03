@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    container_name: landing-page
+    build: .
+    ports:
+     - "5000:5000"
+    depends_on:
+       - mysql
+    links:
+      - mysql
+  mysql:
+    container_name: landing-page-mysql
+    image: "mysql:latest"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: landing_page
+      MYSQL_USER: root

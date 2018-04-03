@@ -12,9 +12,9 @@ FROM python:3.6
 
 MAINTAINER Matthew Shirtliffe
 
-ENV SECRET="kjbkjbkgunmn vjhv"
-ENV APP_SETTINGS="development"
-ENV DATABASE_URL="mysql+pymysql://root:toor@landing-page-mysql/landing_page"
+ENV SECRET_KEY="random string"
+ENV APP_SETTINGS="production"
+ENV DATABASE_URI="mysql+pymysql://root:toor@landing-page-mysql/landing_page"
 
 WORKDIR /usr/src/app
 VOLUME ["/usr/src/app/instance"]
@@ -23,8 +23,8 @@ COPY requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
 
+COPY . .
 EXPOSE 5000
 
 
